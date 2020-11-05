@@ -57,16 +57,19 @@
 #' license. See the [MEME Suite Copyright Page](http://meme-suite.org/doc/copyright.html) for details.
 #'
 #' @export
+#' @rdname runTomTom
 #'
 #' @md
 #'
 #' @importFrom magrittr %>%
 #'
 #' @examples
-#' \dontrun{
-#' runTomTom("searchmotifs.meme", "jasparMotifs.meme")
-#' }
+#' if (meme_is_installed()) {
+#' motif <- universalmotif::create_motif("CCRAAAW")
+#' database <- system.file("extdata/flyFactorSurvey_cleaned.meme", package = "memes")
 #' 
+#' runTomTom(motif, database)
+#' }
 runTomTom <- function(input, database = NULL,
                       outdir = "auto",
                       thresh = 10,
@@ -78,7 +81,7 @@ runTomTom <- function(input, database = NULL,
 }
 
 #' @export
-#' @noRd
+#' @rdname runTomTom
 runTomTom.list <- function(input, database = NULL,
                     outdir = "auto",
                     thresh = 10,
@@ -99,7 +102,7 @@ runTomTom.list <- function(input, database = NULL,
 }
 
 #' @export
-#' @noRd
+#' @rdname runTomTom
 runTomTom.default <- function(input, database = NULL,
                       outdir = "auto",
                       thresh = 10,
@@ -180,7 +183,7 @@ runTomTom.default <- function(input, database = NULL,
 prepareTomTomFlags <- function(outdir, thresh, min_overlap, dist, evalue, ...){
   # lookup table converts arguments with - to _ so
   # user doesn't have to escape flags
-  argsDict = c("outdir" = "oc",
+  argsDict <- c("outdir" = "oc",
                "min_overlap" = "min-overlap",
                "motif_pseudo" = "motif-pseudo",
                "no_ssc" = "no-ssc",
@@ -570,9 +573,7 @@ nest_tomtom_results_best_top_row <- function(tomtom_results){
 #' @importFrom magrittr %<>%
 #'
 #' @examples
-#' \dontrun{
-#' parseTomTom("tomtom.xml")
-#' }
+#' parseTomTom("inst/extdata/tomtom.xml")
 #' @noRd
 parseTomTom <- function(tomtom_xml, query_metadata = NULL){
   #tomtom_xml <- "inst/extdata/dreme_example/tomtom/tomtom.xml"
